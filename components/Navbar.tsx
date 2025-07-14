@@ -15,31 +15,31 @@ export default async function Navbar() {
                 <div className="flex items-center gap-5">
                     {
                         session && session?.user ? (
-                            <div>
+                            <div className='flex items-center gap-5'>
                                 <Link href='/startup/create'>
                                     <span>Create</span>
                                 </Link>
-                                <button onClick={
+                                <form action={
                                     async () => {
                                         "use server"
-                                        await signOut()
+                                        await signOut({ redirectTo: "/" })
                                     }
                                 }>
-                                    <span>Logout</span>
-                                </button>
+                                    <button type="submit">Logout</button>
+                                </form>
                                 <Link href={`/user/${session?.user?.id}`}>
                                     <span>{session?.user?.name}</span>
                                 </Link>
                             </div>
                         ) : (
-                            <button onClick={
+                            <form action={
                                 async () => {
                                     "use server"
                                     await signIn("github", { redirectTo: "/" })
                                 }
                             }>
-                                <span>Login</span>
-                            </button>
+                                <button type="submit">Login</button>
+                            </form>
                         )
                     }
                 </div>
